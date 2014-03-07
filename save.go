@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"github.com/kr/fs"
 	"io"
 	"io/ioutil"
 	"log"
@@ -10,6 +9,8 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+
+	"github.com/kr/fs"
 )
 
 var cmdSave = &Command{
@@ -141,7 +142,7 @@ func copySrc(dir string, g *Godeps) error {
 			if w.Stat().IsDir() {
 				continue
 			}
-			dst := filepath.Join(dir, w.Path()[len(dep.ws)+1:])
+			dst := filepath.Join(dir, w.Path()[len(dep.ws):])
 			if err := copyFile(dst, w.Path()); err != nil {
 				log.Println(err)
 				ok = false
